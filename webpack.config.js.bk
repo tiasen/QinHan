@@ -1,0 +1,101 @@
+const webpack = require('webpack');
+const WebpackDevServer = require("webpack-dev-server");
+const path = require('path');
+const CURRENT_PATH = path.resolve(__dirname);
+const ROOT_PATH = path.join(__dirname,'../');
+const MODULES_PATH = path.join(ROOT_PATH,'./node_modules');
+const BUILD_PATH = path.join(ROOT_PATH,'./dist');
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const pkg = require(path.resolve(__dirname,'./package'));
+
+module.exports = {
+    entry:{
+        app:['./src/index.js'],
+        vendors:[]  //需要打包的第三方插件：jQuery，moment..
+    },
+    output:{
+        path:path.join(__dirname,'dist'),
+        publicPath:'/dist/',
+        filename:'[name].bundle.js'
+    },
+    devServer:{
+        historyApiFallback:true,
+        contentBase:'./',
+        quiet:false, //控制台不输出打包信息   
+        noInfo:false,
+        hot:true,
+        inline:true, //开启页面自动刷新
+        lazy:false,//不开启懒加载
+        progress:true, //显示打包进度
+        watchOptions:{
+            aggregateTimeout:300
+        },
+        port:'8088'
+    },
+    module:{
+        // preLoaders:[{
+        //     test:/\.js$/,
+        //     exclude:[/node_modules/,'/dist/'],
+        //     loader:'jshint-loader'
+        // }],
+        loaders:[
+            // {
+            //     test:/\.css#/,
+            //     loader:ExtractTextPlugin.extract('style-loader','css-loader','postcss-loader'),
+            //     exclude:/node-modules/
+            // },
+            {
+                test:/\.(png|jpg|gif|svg)$/,
+                exclude:/node_modules/,
+                loader:'url?limit=8092'
+            },{
+                test:/\.js$/,
+                exclude:/node_modules/,
+                loader:['babel-loader'],
+                query:{
+                    'presets':['es2016','react']
+                }
+            }            
+        ]
+    },
+    // postcss:function(){
+    //     return [require('postcss-fixes')({preset:'recommended'})]
+    // },
+    // jshint:{
+
+    // },    
+    devtool: 'source-map',
+    resolve:{
+        extensions: ['', '.js', '.jsx', '.json']
+    },
+    plugins:[
+        // failPlugin,
+        //new webpack.HotModuleReplacementPlugin()
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     //与entry中的vendors对应
+        //     name:'vendors',
+        //     //输出公共资源名称
+        //     filename:'common.bundle.js',
+        //     // 对所有entry实行这个规则
+        //     minChunks:Infinity
+        // }),
+        // new webpack.ProvidePlugin({
+        //     $:'jquery',
+        //     react:'react',
+        //     reactDOM:'react-dom'
+        // }),
+        //生成index.html
+        // new HtmlWebPackPlugin({
+        //     title:'title',
+        //     filename:'index.html',
+        //     // template:'header.html',
+        //     // inject:'body',
+        //     minify:false,
+        //     hash:false,
+        //     cache:false,
+        //     showErrors:false
+        // })
+    ]
+}
