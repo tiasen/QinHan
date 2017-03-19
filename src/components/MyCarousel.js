@@ -12,6 +12,10 @@ export default class MyCarousel extends React.Component {
         data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'AiyWuByWklrrUDlFignR'],
       });
     }, 100);
+    this.setState({
+      initialHeight:200
+    })
+   
   }
   render() {
     const hProp = this.state.initialHeight ? { height: this.state.initialHeight } : {};
@@ -30,7 +34,7 @@ export default class MyCarousel extends React.Component {
                   // fire window resize event to change height
                   window.dispatchEvent(new Event('resize'));
                   this.setState({
-                    initialHeight: null,
+                    initialHeight: 200,
                   });
                 }}
               />

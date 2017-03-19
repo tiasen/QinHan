@@ -14,7 +14,7 @@ export default class Tabs extends React.Component {
 
   renderContent(pageText) {
     return (
-      <div  className="container" style={{ backgroundColor: '#eee', textAlign: 'center' }}>
+      <div  className="t-container" style={{ backgroundColor: '#eee', textAlign: 'center' }}>
         <Content tabsIndex = {pageText} />
       </div>
     );
