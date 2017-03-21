@@ -10,12 +10,14 @@ export default class Content extends React.Component{
             return <Home />
         }else if(index === 1){
             return <Menu />
+        }else if(index ===2){
+            return <Page3 />
         }
     }
     render(){
         return (
             <div tabsIndex = {this.props.tabsIndex} id="t-container">                
-                <div>{this.handleContent()}</div>
+                <div style={{width:'100%',height:'100%',overflow:'hidden'}}>{this.handleContent()}</div>
             </div>
         )
     }
