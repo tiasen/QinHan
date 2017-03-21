@@ -1,4 +1,4 @@
-import IScroll from '../lib/iscroll-lite'
+import IScroll from '../../lib/iscroll-lite'
 const data = [
   {
     img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
@@ -49,15 +49,15 @@ const data = [
     price: '14.00'
   }
 ];
-export default class Page3 extends React.Component {
+export default class MainList extends React.Component {
     constructor(prop) {
         super(prop);
         // this.myScroll;
 
     }
     componentDidMount() {
-        console.log(this.refs.menuMainList);      
-        this.myScroll = new IScroll('#menuMainList');
+        var node = this.refs.menuMainList;
+        this.myScroll = new IScroll(node);
 
     }
     _renderRow(item,i) {
@@ -79,15 +79,15 @@ export default class Page3 extends React.Component {
         // console.log(this);
         
         return (
-            <div
-                id='menuMainList'
+            <div                
                 ref="menuMainList"
                 style={{
                 width: '100%',
                 height: '100%'
+               
             }}>
-                <ul>
-                    {data.map((item,i) => {this._renderRow(item,i);})}
+                <ul style={{ background:'#fff'}}>
+                    {data.map((item,i) => {return this._renderRow(item,i);})}
                 </ul>
             </div>
         )

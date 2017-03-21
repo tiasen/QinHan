@@ -1,8 +1,8 @@
 import {Router,Route,hashHistory} from 'react-router';
-import Home from './Home';
-import Menu from './Menu';
-import Page3 from './Page3';
-import Page4 from './Page4';
+import Home from './home/Home';
+import Menu from './menu/Menu';
+import Cart from './cart/Cart';
+
 export default class Content extends React.Component{
     handleContent(){
         var index = this.props.tabsIndex;
@@ -11,7 +11,7 @@ export default class Content extends React.Component{
         }else if(index === 1){
             return <Menu />
         }else if(index ===2){
-            return <Page3 />
+            return <Cart />
         }
     }
     render(){
