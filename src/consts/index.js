@@ -1,0 +1,1 @@
+export const TABS_CHANGED = 'TABS_CHANGED';

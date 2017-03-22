@@ -1,14 +1,12 @@
-import {NavBar, Icon} from 'antd-mobile';
+// import {NavBar, Icon} from 'antd-mobile';
+import {tabsChanged} from '../reducers/reducers';
 
 export default class TopNavBar extends React.Component {
     render() {
+        console.log(this.props)
         return (
             <div id="topNavBar">
-                <NavBar                    
-                    leftContent="返回"
-                    mode="light"
-                    onLeftClick={() => console.log('onLeftClick')}
-                    rightContent={[< Icon key = "0" type = "search" style = {{ marginRight: '0.32rem' }}/>, <Icon key="1" type="ellipsis" / >]}>NavBar</NavBar>
+                {this.props.pageText}
             </div>
         )
     }

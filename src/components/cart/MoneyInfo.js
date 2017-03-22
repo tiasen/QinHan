@@ -18,7 +18,7 @@ export default class MoneyInfo extends React.Component{
                 <div className='section'>
                     <span>应付：￥100.00</span>
                     <span>已付：￥100.00</span>
-                    <span>还需支付：￥100.00</span>
+                    <span>还需支付：￥1000.00</span>
                     <span className="button"><button>立即支付</button></span>
                 </div>
             </div>

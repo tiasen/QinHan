@@ -13,7 +13,9 @@
     "babel-runtime": "~6.11.6",
     "moment": "^2.14.1",
     "rc-form": "^0.17.2",
-    "react-router": "^2.8.1"
+    "react-redux": "^5.0.3",
+    "react-router": "^2.8.1",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "antd-mobile-demo-data": "^0.1.3",
