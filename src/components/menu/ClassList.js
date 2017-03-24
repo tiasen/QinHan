@@ -8,12 +8,12 @@ export default class ClassList extends React.Component {
     componentDidMount() {
         var myScroll;
         var node = this.refs.scrollTest;
-        myScroll = new IScroll(node);
+        myScroll = new IScroll('classList');
 
     }
     render() {
         return (
-            <div                
+            <div id="classList"
                 ref="scrollTest"
                 style={{
                 width: '100%',

@@ -2,7 +2,7 @@ import {Router,Route,hashHistory} from 'react-router';
 import Home from './home/Home';
 import Menu from './menu/Menu';
 import Cart from './cart/Cart';
-
+import Personal from './personal/Personal';
 export default class Content extends React.Component{
     handleContent(){
         var index = this.props.tabsIndex;
@@ -12,6 +12,8 @@ export default class Content extends React.Component{
             return <Menu />
         }else if(index ===2){
             return <Cart />
+        }else {
+            return <Personal />
         }
     }
     render(){
