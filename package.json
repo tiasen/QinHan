@@ -46,8 +46,8 @@
     "style-loader": "^0.12.4",
     "svg-sprite-loader": "^0.3.0",
     "url-loader": "~0.5.7",
-    "webpack": "~1.13.1",
+    "webpack": "^1.14.0",
     "webpack-dev-middleware": "~1.6.1",
-    "webpack-dev-server": "^2.4.2"
+    "webpack-dev-server": "^1.16.3"
   }
 }

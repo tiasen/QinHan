@@ -39,18 +39,8 @@ export default class Tabs extends React.Component {
         <TabBar.Item
           title="首页"
           key="首页"
-          icon={<div style={{
-            width: '0.44rem',
-            height: '0.44rem',
-            background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  0.42rem 0.42rem no-repeat' }}
-          />
-          }
-          selectedIcon={<div style={{
-            width: '0.44rem',
-            height: '0.44rem',
-            background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  0.42rem 0.42rem no-repeat' }}
-          />
-          }
+          icon={<Icon type={require('.././svg/home.svg')} size="md" />}
+          selectedIcon={<Icon type={require('.././svg/home1.svg')} size="md" />}
           selected={this.state.selectedTabIndex === 0}
           onPress={() => {
             this.setState({
@@ -61,8 +51,8 @@ export default class Tabs extends React.Component {
           {this.renderContent(0)}
         </TabBar.Item>
         <TabBar.Item
-          icon={<Icon type="koubei-o" size="md" />}
-          selectedIcon={<Icon type="koubei" size="md" />}
+          icon={<Icon type={require('.././svg/food.svg')} size="md" />}
+          selectedIcon={<Icon type={require('.././svg/food1.svg')} size="md" />}
           title="菜单"
           key="菜单"
           dot={this.state.dot}
@@ -76,20 +66,8 @@ export default class Tabs extends React.Component {
           {this.renderContent(1)}
         </TabBar.Item>
         <TabBar.Item
-          icon={
-            <div style={{
-              width: '0.44rem',
-              height: '0.44rem',
-              background: 'url(https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg) center center /  0.42rem 0.42rem no-repeat' }}
-            />
-          }
-          selectedIcon={
-            <div style={{
-              width: '0.44rem',
-              height: '0.44rem',
-              background: 'url(https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg) center center /  0.42rem 0.42rem no-repeat' }}
-            />
-          }
+          icon={<Icon type={require('.././svg/cart.svg')} size="md" />}
+          selectedIcon={<Icon type={require('.././svg/cart1.svg')} size="md" />}
           title="购物车"
           key="购物车"
           selected={this.state.selectedTabIndex === 2}
@@ -102,8 +80,8 @@ export default class Tabs extends React.Component {
           {this.renderContent(2)}
         </TabBar.Item>
         <TabBar.Item
-          icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
-          selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
+          icon={<Icon type={require('.././svg/person.svg')} size="md" />}
+          selectedIcon={<Icon type={require('.././svg/person1.svg')} size="md" />}
           title="个人中心"
           key="个人中心"
           selected={this.state.selectedTabIndex === 3}
