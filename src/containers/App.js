@@ -1,30 +1,44 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import Tabs from '../components/Tabs';
+import {Router,Route,IndexRoute ,browserHistory } from 'react-router';
+import {routeReducer,push} from 'react-router-redux';
 // import {selectTab} from '../actions/actions';
 import * as Actions from '../actions/actions';
+import Content from '../components/Content';
+
 class App extends React.Component{
 
     componentDidMount(){
-        console.log(this.props);
+        this.props.dispatch(push('/home'));
     }
     render(){
-        const {dispatch,selectedTab,actions} = this.props;
-        return <Tabs selectedTab={selectedTab}
-                     actions = {actions}
-                     onSelectTab = {(tab) => dispatch(Actions.selectTab(tab))} />
-           
+        const {dispatch,selectedTab,actions,history,data} = this.props;
+        return <Content actions={actions}
+                        history={history}
+                        dispatch={dispatch}
+                        selectedTab={selectedTab}
+                        data={data}/>
     }
 }
 const mapStateToProps = state => {
-    const {selectedTab} = state;
-    return {
-        selectedTab
+    // console.log(state)
+    const {selectedTab,getsList} = state;
+    const {
+        isFetching,
+        data:data
+    } = getsList[selectedTab] || {
+        isFetching:true,
+        data:[]
     }
-
+    return {
+        selectedTab,
+        data,
+        isFetching
+    }
 };
 const mapDispatchToProps = dispatch => ({
-   actions:bindActionCreators(Actions,dispatch),
+    actions:bindActionCreators(Actions,dispatch),
     dispatch
+
 });
 export default connect(mapStateToProps,mapDispatchToProps)(App);

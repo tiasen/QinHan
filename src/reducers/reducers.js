@@ -1,4 +1,6 @@
 import {combineReducers} from 'redux';
+import { routerReducer } from 'react-router-redux';
+
 import {REQUEST_GETS,RECEIVE_GETS,SELECT_TAB} from '../consts';
 
 var selectedTab = (state = 'home',action) => {
@@ -48,6 +50,7 @@ const getsList = (state = {},action) => {
 
 const reducer = combineReducers({
     selectedTab,
-    getsList
+    getsList,
+    router:routerReducer
 });
 export default reducer;

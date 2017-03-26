@@ -29,7 +29,7 @@ export default class MyCarousel extends React.Component {
           {this.state.data.map(ii => (
             <a href="http://www.baidu.com" key={ii} style={hProp}>
               <img
-                src={`https://zos.alipayobjects.com/rmsportal/${ii}.png`}
+                src={`https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1490537233306&di=c18e18ae3eff408e1806593df76f3249&imgtype=0&src=http%3A%2F%2Fa4.att.hudong.com%2F38%2F47%2F19300001391844134804474917734_950.png`}
                 onLoad={() => {
                   // fire window resize event to change height
                   window.dispatchEvent(new Event('resize'));
