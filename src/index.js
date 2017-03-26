@@ -1,29 +1,18 @@
-import App from './containers/App';
-import {createStore} from 'redux';
+import {createStore,applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
-import mealApp from './reducers/reducers';
+import {createLogger} from 'redux-logger';
+import thunk from 'redux-thunk';
+
+import App from './containers/App';
+import reducer from './reducers/reducers';
 require('../style.less');
 
-let store = createStore(mealApp);
+const logger = createLogger();
+
+let store = createStore(reducer,applyMiddleware(thunk,logger));
 ReactDOM.render(
     <Provider store={store}>
         <App />
     </Provider>,
     document.querySelector('#root')
-)
-/*class App extends React.Component{
-    render(){
-        return (
-            <div>
-                app
-            </div>
-        )
-    }
-}
-
-import {Router,Route,hashHistory} from 'react-router';
-ReactDOM.render((
-    <Router history={hashHistory}>
-        <Router path="/" component={App} />
-    </Router>
-),document.querySelector('#root'))*/
+);

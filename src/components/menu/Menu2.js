@@ -2,6 +2,7 @@ import ClassList from './ClassList';
 import MainList from './MainList';
 export default class Menu extends React.Component {
     componentDidMount(){
+        // debugger;
         console.log(this.props)
     }
     render() {

@@ -6,5 +6,5 @@
 /**
  * TODO:
  *  1.轮播图高度问题
- *  2.使用scroller
+ *  2.router
  * */

@@ -1,14 +1,30 @@
-import Tabs from '../components/Tabs';
-import TopNavBar from '../components/TopNavBar';
-import Content from '../components/Content'
-import {tabsChangedFn} from '../actions/actions';
+import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
- class App extends React.Component{
-    render(){
+import Tabs from '../components/Tabs';
+// import {selectTab} from '../actions/actions';
+import * as Actions from '../actions/actions';
+class App extends React.Component{
+
+    componentDidMount(){
         console.log(this.props);
-        const {dispatch} = this.props;
-        return <Tabs onHandleClick = {(text) => dispatch(tabsChangedFn(text))}/>
+    }
+    render(){
+        const {dispatch,selectedTab,actions} = this.props;
+        return <Tabs selectedTab={selectedTab}
+                     actions = {actions}
+                     onSelectTab = {(tab) => dispatch(Actions.selectTab(tab))} />
            
     }
 }
-export default connect()(App);
+const mapStateToProps = state => {
+    const {selectedTab} = state;
+    return {
+        selectedTab
+    }
+
+};
+const mapDispatchToProps = dispatch => ({
+   actions:bindActionCreators(Actions,dispatch),
+    dispatch
+});
+export default connect(mapStateToProps,mapDispatchToProps)(App);

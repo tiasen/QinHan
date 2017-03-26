@@ -1,16 +1,53 @@
 import {combineReducers} from 'redux';
-import {TABS_CHANGED} from '../consts';
+import {REQUEST_GETS,RECEIVE_GETS,SELECT_TAB} from '../consts';
 
-function tabsChanged(state = 1,action){
+var selectedTab = (state = 'home',action) => {
+    switch (action.type){
+        case SELECT_TAB:
+            return action.tab;
+
+        default: return state;
+    }
+};
+
+const gets = (state = {
+        isFetching:false,
+        didInvalidate:false,
+        data:[]
+    },action) => {
+        switch(action.type){
+            case REQUEST_GETS :
+                return {
+                    ...state,
+                    isFetching:true,
+                    didInvalidate:false
+                };
+            case RECEIVE_GETS :
+                return {
+                    ...state,
+                    isFetching:false,
+                    didInvalidate:false,
+                    data:action.data
+                };
+            default: return state;
+        }
+    }
+
+const getsList = (state = {},action) => {
     switch(action.type){
-        case TABS_CHANGED:
-            return action.index;
-        default:
-            return state;    
+        case REQUEST_GETS :
+        case RECEIVE_GETS :
+            return {
+                ...state,
+                [action.tab]:gets(state[action.tab],action)
+            }
+        default : return state;
+
     }
 }
 
-const mealApp = combineReducers({
-    tabsChanged
+const reducer = combineReducers({
+    selectedTab,
+    getsList
 });
-export default mealApp;
+export default reducer;

@@ -3,7 +3,8 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const pxtorem = require('postcss-pxtorem');
-
+const publicPath = 'http://localhost:3000/';
+const hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
 // 1. 如需添加私有图标，可在如下的 svgDirs 数组中加入本地 svg 文件路径
 const svgDirs = [
   // path.resolve(__dirname, 'src/my-project-svg-foler'),  // 自己私人的 svg 存放目录
@@ -16,13 +17,13 @@ svgDirs.push(antdDir);
 module.exports = {
   devtool: 'source-map', // or 'inline-source-map'
 
-  entry: { "index": path.resolve(__dirname, 'src/index') },
+  entry: { "index": [path.resolve(__dirname, 'src/index'),hotMiddlewareScript]},
 
   output: {
     filename: '[name].js',
     chunkFilename: '[id].chunk.js',
     path: path.join(__dirname, '/dist'),
-    publicPath: '/dist/'
+    publicPath: publicPath
   },
 
   resolve: {
@@ -63,20 +64,20 @@ module.exports = {
 //     "react": "React",
 //     "react-dom": "ReactDOM"
 //   },
-    devServer:{
-        historyApiFallback:true,
-        contentBase:'./',
-        quiet:false, //控制台不输出打包信息   
-        noInfo:false,
-        hot:true,
-        inline:true, //开启页面自动刷新
-        lazy:false,//不开启懒加载
-        progress:true, //显示打包进度
-        watchOptions:{
-            aggregateTimeout:300
-        },
-        port:'8088'
-    },
+//     devServer:{
+//         historyApiFallback:true,
+//         contentBase:'./',
+//         quiet:false, //控制台不输出打包信息
+//         noInfo:false,
+//         hot:true,
+//         inline:true, //开启页面自动刷新
+//         lazy:false,//不开启懒加载
+//         progress:true, //显示打包进度
+//         watchOptions:{
+//             aggregateTimeout:300
+//         },
+//         port:'8088'
+//     },
   plugins: [
     // new webpack.optimize.CommonsChunkPlugin('shared.js'),
     new webpack.optimize.CommonsChunkPlugin({
@@ -90,6 +91,9 @@ module.exports = {
             React:'react',
             ReactDOM:'react-dom'
         }),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
   ]
 
 }

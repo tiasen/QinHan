@@ -1,4 +1,4 @@
-import IScroll from '../../lib/iscroll-lite'
+import scroller from '../../lib/scroller/EasyScroller';
 const data = [
   {
     img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
@@ -56,8 +56,7 @@ export default class MainList extends React.Component {
 
     }
     componentDidMount() {
-        var node = this.refs.menuMainList;
-        this.myScroll = new IScroll(node);
+        scroller();
 
     }
     _renderRow(item,i) {
@@ -79,14 +78,8 @@ export default class MainList extends React.Component {
         // console.log(this);
         
         return (
-            <div                
-                ref="menuMainList"
-                style={{
-                width: '100%',
-                height: '100%'
-               
-            }}>
-                <ul style={{ background:'#fff'}}>
+            <div style={{width: '100%',height: '100%',position:'relative',overflow:'hidden'}}>
+                <ul data-scrollable="y" style={{ background:'#fff',width:'100%',position:'absolute'}}>
                     {data.map((item,i) => {return this._renderRow(item,i);})}
                 </ul>
             </div>

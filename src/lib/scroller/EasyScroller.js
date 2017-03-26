@@ -189,9 +189,7 @@ EasyScroller.prototype.bindEvents = function() {
 
 let init = function(){
     var elements = document.querySelectorAll('[data-scrollable],[data-zoomable]'), element;
-    console.log(elements)
     for (var i = 0; i < elements.length; i++) {
-
         element = elements[i];
         var scrollable = element.attributes.getNamedItem('data-scrollable') ? element.attributes.getNamedItem('data-scrollable').value : null;
         var zoomable = element.attributes.getNamedItem('data-zoomable') ? element.attributes.getNamedItem('data-zoomable').value : '';

@@ -1,34 +1,41 @@
 import { TabBar, Icon } from 'antd-mobile';
-/* eslint global-require: 0 */
+import {Router,Route,IndexRoute ,browserHistory } from 'react-router';
 import Content from './Content';
-// import TopNavBar from './TopNavBar';
+
 export default class Tabs extends React.Component {
 
   constructor(props) {
     super(props);
+    const {selectedTab} = this.props;
     this.state = {
-      selectedTabIndex: 0,
+      selectedTab: selectedTab,
       hidden: false,
       dot:true
     };
-    // console.log(store);
   }
-
-  renderContent(index) {    
-    
+  componentDidMount(){
+      const {selectedTab} = this.props;
+      browserHistory.push(selectedTab)
+  }
+  renderContent() {
     return (
       <div>        
-        <div  className="t-container" style={{ backgroundColor: '#eee', textAlign: 'center' }}>
-          <Content tabsIndex = {index} />
+        <div className="t-container" style={{ backgroundColor: '#eee', textAlign: 'center' }}>
+            <Content />
         </div>
       </div>
-      
+
     );
   }
-  handleClick(text){
-    this.props.onHandleClick(text);
+  handleClick(tab){
+      this.props.onSelectTab(tab);
+      this.setState({
+          selectedTab:tab
+      })
   }
+
   render() {
+      console.log(this.props);
     return (
       <TabBar
         unselectedTintColor="#949494"
@@ -41,14 +48,14 @@ export default class Tabs extends React.Component {
           key="首页"
           icon={<Icon type={require('.././svg/home.svg')} size="md" />}
           selectedIcon={<Icon type={require('.././svg/home1.svg')} size="md" />}
-          selected={this.state.selectedTabIndex === 0}
+          selected={this.state.selectedTab === 'home'}
           onPress={() => {
-            this.setState({
-              selectedTabIndex: 0,
-            });                  
+            browserHistory.push('home');
+            this.handleClick('home');
+
           }}          
         >
-          {this.renderContent(0)}
+          {this.renderContent()}
         </TabBar.Item>
         <TabBar.Item
           icon={<Icon type={require('.././svg/food.svg')} size="md" />}
@@ -56,45 +63,49 @@ export default class Tabs extends React.Component {
           title="菜单"
           key="菜单"
           dot={this.state.dot}
-          selected={this.state.selectedTabIndex === 1}
+          selected={this.state.selectedTab === 'menu'}
           onPress={() => {
-            this.setState({
-              selectedTabIndex: 1,
-            });
+
+            browserHistory.push('menu');
+            this.handleClick('menu');
+
           }}          
         >          
-          {this.renderContent(1)}
+          {this.renderContent()}
         </TabBar.Item>
         <TabBar.Item
           icon={<Icon type={require('.././svg/cart.svg')} size="md" />}
           selectedIcon={<Icon type={require('.././svg/cart1.svg')} size="md" />}
           title="购物车"
           key="购物车"
-          selected={this.state.selectedTabIndex === 2}
+          selected={this.state.selectedTab === 'cart'}
           onPress={() => {
-            this.setState({
-              selectedTabIndex: 2,
-            });       
+            browserHistory.push('cart');
+            this.handleClick('cart');
           }}
         >          
-          {this.renderContent(2)}
+          {this.renderContent()}
         </TabBar.Item>
         <TabBar.Item
           icon={<Icon type={require('.././svg/person.svg')} size="md" />}
           selectedIcon={<Icon type={require('.././svg/person1.svg')} size="md" />}
           title="个人中心"
           key="个人中心"
-          selected={this.state.selectedTabIndex === 3}
+          selected={this.context.selectedTab === 'personal'}
           onPress={() => {
-            this.setState({
-              selectedTabIndex: 3,
-            });                     
+            browserHistory.push('personal');
+            this.handleClick('personal');
           }}
         >
-          {this.renderContent(3)}
+          {this.renderContent()}
         </TabBar.Item>
       </TabBar>
     );
   }
 }
+
+
+
+
+
 

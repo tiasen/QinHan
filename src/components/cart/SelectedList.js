@@ -1,4 +1,4 @@
-import IScroll from '../../lib/iscroll-lite';
+import scroller from '../../lib/scroller/EasyScroller';
 export default class SelectedList extends React.Component{
     state = {
         data:[
@@ -15,24 +15,25 @@ export default class SelectedList extends React.Component{
             ]
     }
     componentDidMount(){
-        var node = this.refs.selectedList;
-        var myIScroll = new IScroll(node);
+        scroller();
     }
     render(){
         return (
             <div className="selectedList" ref="selectedList">
-                <ul>
-                    <li><h4>已下单的菜</h4></li>
-                    {this.state.data.map((item,i) => 
-                        <li key={i}>
-                            <header>{item.name}</header>
-                            <div>
-                                <span className="price">￥：{item.price}</span>
-                                <span>{item.num}份</span>
-                                <span>已上菜</span>
-                            </div>
-                        </li>)}
-                </ul>
+                <div style={{width:'100%',height:'100%',position:'relative',overflow:'hidden'}}>
+                    <ul data-scrollable="y" style={{width:'100%',position:'absolute'}}>
+                        <li><h4>已下单的菜</h4></li>
+                        {this.state.data.map((item,i) =>
+                            <li key={i}>
+                                <header>{item.name}</header>
+                                <div>
+                                    <span className="price">￥：{item.price}</span>
+                                    <span>{item.num}份</span>
+                                    <span>已上菜</span>
+                                </div>
+                            </li>)}
+                    </ul>
+                </div>
             </div>
         )
     }

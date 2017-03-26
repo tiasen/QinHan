@@ -5,6 +5,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const fs = require('fs');
+const consolidate = require('consolidate');
 app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -14,6 +15,19 @@ app.all('*', function (req, res, next) {
     next();
 });
 
+app.engine('html',consolidate.hogan);
+app.set('view engine','html');
+app.set('views',path.resolve(__dirname,'./dist'))
+// app.use('/page',express.static(path.join('dist')));
+// app.get('/',(req,res) => {
+//     // res.set('Content-Type','text/html');
+//     res.redirect('/page/');
+// });
+// app.get('/page/*',(req,res) => {
+//     // res.set('Content-Type','text/html');
+//     res.render('index');
+//     // res.send('index');
+// });
 app.get('/api/stayTime', (req, res) => {
     console.log(req.query);
     // fs.writeFile('./data/data.txt',function())
@@ -29,8 +43,8 @@ app.get('/api/stayTime', (req, res) => {
     res.json(req.query);
 });
 
-app.get('/api/meal/list',(req,res) =>{
-    fs.readFile('./mock/list.json','utf-8',(err,data) => {
+app.get('/api/meal',(req,res) =>{
+    fs.readFile('./list.json','utf-8',(err,data) => {
         if(err) throw new Error(err);
         let json = JSON.parse(data);
         res.json(json);
