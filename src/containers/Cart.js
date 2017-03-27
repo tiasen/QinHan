@@ -1,5 +1,5 @@
-import MoneyInfo from './MoneyInfo';
-import SelectedList from './SelectedList'
+import MoneyInfo from './../components/cart/MoneyInfo';
+import SelectedList from './../components/cart/SelectedList'
 export default class Cart extends React.Component{
     componentDidMount(){
         console.log(this.props)

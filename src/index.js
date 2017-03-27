@@ -13,6 +13,7 @@ import thunk from 'redux-thunk';
 const logger = createLogger();
 import reducers from './reducers/reducers' // Or wherever you keep your reducers
 
+import Router from './route';
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory()
 
@@ -24,22 +25,22 @@ const middleware = routerMiddleware(history)
 
 const store = createStore(
     reducers,
-    applyMiddleware(middleware,thunk,logger)
+    applyMiddleware(middleware,thunk)
 )
 require('../style.less');
 // Now you can dispatch navigation actions from anywhere!
 // store.dispatch(push('/foo'))
 
-import Home from './components/home/Home';
+import Home from './containers/Home';
 import Menu from './components/menu/Menu2';
-import Cart from './components/cart/Cart';
-import Personal from './components/personal/Personal';
-import Tabs from './components/Tabs2';
+import Cart from './containers/Cart';
+import Personal from './containers/Personal';
+import Tabs from './containers/Tabs2';
 import App from './containers/App';
 
 ReactDOM.render(
     <Provider store={store}>
-        <App history={history} />
+        <Router history={history} />
     </Provider>,
     document.getElementById('root')
 )

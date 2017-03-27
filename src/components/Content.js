@@ -1,10 +1,10 @@
 import {Router,Route,IndexRedirect,browserHistory } from 'react-router';
 import {ConnectedRouter,routeReducer,routerMiddleware,push} from 'react-router-redux';
-import Home from './home/Home';
-import Menu from './menu/Menu';
-import Cart from './cart/Cart';
-import Personal from './personal/Personal';
-import Tabs from './Tabs2';
+import Home from './../containers/Home';
+import Menu from './../containers/Menu';
+import Cart from './../containers/Cart';
+import Personal from './../containers/Personal';
+import Tabs from './../containers/Tabs2';
 import {selectTab,fetchGetsIfNeed} from '../actions/actions';
 
 export default class Content extends React.Component{

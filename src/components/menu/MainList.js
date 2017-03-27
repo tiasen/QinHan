@@ -1,4 +1,4 @@
-import scroller from '../../lib/scroller/EasyScroller';
+import EasyScroller from '../../lib/scroller/EasyScroller';
 const data = [
   {
     img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
@@ -53,11 +53,25 @@ export default class MainList extends React.Component {
     constructor(prop) {
         super(prop);
         // this.myScroll;
-
+        this.state = {
+            myScroller:{}
+        }
+    }
+    componentWillMount(){
+        //console.log(this.props)
     }
     componentDidMount() {
-        scroller();
+        //scroller();
+        //console.log(this.props)
+        const node = this.refs.scroller;
+        this.setState({
+            myScroller:new EasyScroller(node,{scrollingX:false,scrollingY:true})
+        })
 
+    }
+    componentWillReceiveProps(){
+        //console.log(this.state)
+        this.state.myScroller.scroller.scrollTo(0,0,false);
     }
     _renderRow(item,i) {
         return (
@@ -66,7 +80,7 @@ export default class MainList extends React.Component {
                 <img src={item.img}/>
             </div>
             <div className="ListViewItem-right">
-                <h5 className="title">{item.title}</h5>
+                <h5 className="title">{item.name}</h5>
                 <p className="des">{item.des}</p>
                 <p className="price">￥:{item.price}</p>
             </div>
@@ -76,11 +90,11 @@ export default class MainList extends React.Component {
     }
     render() {
         // console.log(this);
-        
+        const {data,selectedClass} = this.props;
         return (
             <div style={{width: '100%',height: '100%',position:'relative',overflow:'hidden'}}>
-                <ul data-scrollable="y" style={{ background:'#fff',width:'100%',position:'absolute'}}>
-                    {data.map((item,i) => {return this._renderRow(item,i);})}
+                <ul ref="scroller" style={{ background:'#fff',width:'100%',position:'absolute'}}>
+                    {data[selectedClass].map((item,i) => {return this._renderRow(item,i);})}
                 </ul>
             </div>
         )

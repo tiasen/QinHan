@@ -1,5 +1,5 @@
 import { Icon } from 'antd-mobile';
-import MyCarousel from './MyCarousel';
+import MyCarousel from './../components/home/MyCarousel';
 
 export default class Home extends React.Component{
     render(){
