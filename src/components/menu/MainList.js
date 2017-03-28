@@ -69,13 +69,15 @@ export default class MainList extends React.Component {
         })
 
     }
-    componentWillReceiveProps(){
-        //console.log(this.state)
-        this.state.myScroller.scroller.scrollTo(0,0,false);
+    componentWillReceiveProps(nextProps){
+        if(this.props.selectedClass != nextProps.selectedClass){
+            this.state.myScroller.scroller.scrollTo(0,0,false);
+        }
     }
     _renderRow(item,i) {
+        const {onShowPopup} = this.props;
         return (
-        <li key={i} className="ListViewItem">
+        <li key={i} className="ListViewItem" onClick={() => onShowPopup(item)}>
             <div className="ListViewItem-left">
                 <img src={item.img}/>
             </div>

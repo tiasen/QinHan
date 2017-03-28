@@ -30,7 +30,6 @@ const store = createStore(
 require('../style.less');
 // Now you can dispatch navigation actions from anywhere!
 // store.dispatch(push('/foo'))
-
 import Home from './containers/Home';
 import Menu from './components/menu/Menu2';
 import Cart from './containers/Cart';

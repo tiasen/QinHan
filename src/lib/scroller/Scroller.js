@@ -13,7 +13,6 @@
  */
 var core = require('./Animate');
 var Scroller;
-
 (function() {
     var NOOP = function(){};
 

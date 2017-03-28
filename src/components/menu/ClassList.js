@@ -15,7 +15,7 @@ export default class ClassList extends React.Component {
             myScroller:new EasyScroller(node,{scrollingX:false,scrollingY:true})
         })
 
-        console.log(this.props)
+        //console.log(this.props)
     }
     render() {
         const {list,onSelectClass} = this.props;

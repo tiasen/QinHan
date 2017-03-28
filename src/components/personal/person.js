@@ -1,7 +1,7 @@
 import { Popup, List, Button, Icon ,Stepper} from 'antd-mobile';
 import Pinker from './Pinker'
 import Step from './stepper';
-import Checkbox from './checkbox';
+import Checkbox from './accordtion';
 // fix touch to scroll background page on iOS
 // https://github.com/ant-design/ant-design-mobile/issues/307
 // https://github.com/ant-design/ant-design-mobile/issues/163
@@ -14,11 +14,11 @@ if (isIPhone) {
         onTouchStart: e => e.preventDefault(),
     };
 }
-console.log(isIPhone)
 export default class Test extends React.Component {
     state = {
         sel: '',
-        val: 3
+        val: 3,
+        showCheckbox:false
     };
     onClick = () => {
         Popup.show(<div>
@@ -40,9 +40,8 @@ export default class Test extends React.Component {
                 <Pinker data={data} />
 
                 <Pinker data={data} />
-                <Checkbox />
                 <Step text="数量" onChooseNmber={(num) => this.onChangeNumber(num)} />
-
+                <Checkbox />
 
             </List>
             <ul style={{ padding: '0.18rem 0.3rem', listStyle: 'none' }}>
@@ -53,6 +52,9 @@ export default class Test extends React.Component {
             </ul>
         </div>, { animationType: 'slide-up', maskProps, maskClosable: false });
     };
+    showCheckbox(){
+
+    }
     onChangeNumber = (val) => {
         // console.log(val);
         this.setState({ val });

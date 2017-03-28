@@ -13,7 +13,7 @@ export default class Personal extends React.Component{
            <div>
                <Text />
                <Pinker />
-               <Step />
+
            </div>)
 
     }
