@@ -4,7 +4,6 @@ h1,h2,h3,h4,h5,h6,p,li,ol,ul{
 }
 ol,li,ul,dt,dd,dl{
   list-style: none;
-
 }
 body{
   overflow:hidden;
@@ -12,10 +11,63 @@ body{
   box-sizing: border-box;
   text-align:center;
 }
+
 /*--  风琴效果展开内容背景色----*/
 .am-accordion-content-active{
   background:#f5f5f5!important;
 }
+/*--  风琴效果头部----*/
+.am-accordion-header{
+  text-align:left;
+}
+/*------  空页面和报错页面  ------------------*/
+.errorPage{
+  height:100%;
+  background: url('src/lib/imgs/error.png') no-repeat center center;
+  background-size:100%;
+}
+.nullPage{
+  height:100%;
+  background: url('src/lib/imgs/null.png') no-repeat center center;
+  background-size:100%;
+}
+/*------- 计步器样式  -------------*/
+.myStepper{
+  overflow:hidden;
+  display:flex;
+  justify-content: space-between;
+  .count{
+    min-width:0px;
+    text-align:center;
+    input{
+      width:80%;
+      border:none;
+      height:100%;
+      text-align:center;
+    }
+  }
+  .myStepperBtn{
+    min-width:60px;
+    min-height:60px;
+    border:solid #8a8a8a 1px;
+    border-radius:5px;
+    line-height:60px;
+    text-align:center;
+    background:url('./src/lib/imgs/add.png') no-repeat center center;
+    background-size:70%;
+  }
+  .myStepperBtn:first-child{
+    background:url('./src/lib/imgs/minus.png') no-repeat center center;
+    background-size:70%;
+  }
+  .myStepperBtn.disabled{
+    opacity:0.5;
+  }
+  .myStepperBtn:active:not(.disabled){
+    background-color:#aaa;
+  }
+}
+
 /* --------------- tabs css start  ---------------*/
 #tab-bar.demo {
   display: flex;
@@ -299,19 +351,18 @@ body{
     }
   }
 }
-
 /*  ------------------  加载动画  --------------- */
 .am-toast{
-  bottom:100px!important;
-  height:auto!important;
   .am-toast-notice-content{
     transform:translateY(-50%);
   }
 }
+/*------- 菜单加载失败 --------------*/
+
 /* ------  菜单口味选择等。。------------*/
 .tasteCheck{
-  height:90px;
-  line-height:90px;
+  height:80px;
+  line-height:80px;
   font-size:32px;
   width:50%;
   overflow: hidden;
@@ -323,8 +374,6 @@ body{
     padding:0 20px;
   }
 }
-
-
 #test{
   width:100px;
   height:100px;

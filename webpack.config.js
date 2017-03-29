@@ -8,7 +8,7 @@ const hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
 // 1. 如需添加私有图标，可在如下的 svgDirs 数组中加入本地 svg 文件路径
 const svgDirs = [
   // path.resolve(__dirname, 'src/my-project-svg-foler'),  // 自己私人的 svg 存放目录
-  path.resolve(__dirname, './src/svg/'),path.resolve(__dirname, './src/lib/icheck/')
+  path.resolve(__dirname, './src/svg/')
 ];
 
 // 2. 把属于 antd-mobile 内置 svg 文件也加入进来
@@ -48,7 +48,7 @@ module.exports = {
       },
       { test: /\.(jpg|png)$/, loader: "url?limit=8192" },
       // svg-sprite for antd-mobile@1.0 注意：如果有其他 svg loader 设置，请 exclude 掉这里的 svgDirs 目录
-      { test: /\.(svg)$/i, loader: 'svg-sprite', include: svgDirs },
+      { test: /\.(svg)$/i, loader: 'svg-sprite', include: svgDirs,exclude:/imgs/ },
       // { test: /\.css$/, loader: 'style!css' }, // 把css处理成内联style，动态插入到页面
       { test: /\.less$/i, loader: ExtractTextPlugin.extract('style', 'css!postcss!less') },
       { test: /\.css$/i, loader: ExtractTextPlugin.extract('style', 'css!postcss') }

@@ -1,7 +1,7 @@
 /**
  * Created by 365969 on 2017/3/27.
  */
-import { List, Stepper } from 'antd-mobile';
+import { List, Stepper, } from 'antd-mobile';
 
 export default class Demo extends React.Component {
     constructor(props) {

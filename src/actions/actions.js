@@ -1,4 +1,4 @@
-import {URL,REQUEST_GETS,RECEIVE_GETS,SELECT_TAB} from '../consts';
+import {URL,REQUEST_GETS,RECEIVE_GETS,SELECT_TAB,RECEIVE_GETS_FAILED} from '../consts';
 
 export const selectTab = tab => ({
     type:SELECT_TAB,
@@ -16,6 +16,11 @@ export const receiveGets = (tab,json) => ({
     data:json.result,
     receivedAt:Date.now()
 });
+export const receiveGetsFaild = (tab,data) => ({
+    type:RECEIVE_GETS_FAILED,
+    tab,
+    data
+});
 
 const fetchGets = tab => dispatch => {
     dispatch(requestGets(tab));
@@ -27,18 +32,19 @@ const fetchGets = tab => dispatch => {
             if(data.success){
                 dispatch(receiveGets(tab,data))
             }else{
-                dispatch(receiveGets(tab,data))
+                dispatch(receiveGetsFaild(tab,data))
             }
         })
         .fail((err) => {
-            dispatch(receiveGets(tab,data))
+            console.log(err)
+            dispatch(receiveGetsFaild(tab,err))
         })
     )
 
 };
 
 const shouldFetchGets = (state,tab) => {
-    const posts = state.getsList[tab];
+    const posts = state.getsList[tab] && !state.getsList[tab].isFailed;
     if(!posts) {
         return true;
     }

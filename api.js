@@ -47,15 +47,13 @@ app.get('/api/menu',(req,res) =>{
     fs.readFile('./list.json','utf-8',(err,data) => {
         if(err) throw new Error(err);
         let json = JSON.parse(data);
-        //console.log(json)
         setTimeout(function(){
             res.json(json);
 
-        },1000)
+        },500)
     })
 
 });
-
 
 app.listen(8000, () => {
     console.log('server start at 8000')
