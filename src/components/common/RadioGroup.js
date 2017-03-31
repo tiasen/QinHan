@@ -14,7 +14,8 @@ export default class RadioGroup extends React.Component {
 
     }
     componentDidMount() {
-        //const {data,onSelected} = this.props;
+        const {data,addToCart,groupName} = this.props;
+        console.log(addToCart)
         //onSelected(data[0]);
         let node = this.refs.sizeForm;
         const _this = this;
@@ -24,7 +25,18 @@ export default class RadioGroup extends React.Component {
             radioClass: 'iradio_flat-blue',
             increaseArea: '20%' // optional
         });
-        $inputList.eq(0).iCheck('check');
+        //let checkedIndex =
+        //data.forEach((item,i) => {
+        //
+        //})
+        if(addToCart.isModify){
+            if(addToCart.list[groupName]){
+                //TODO : 修改默认选择
+            }
+        }else{
+            $inputList.eq(0).iCheck('check');
+        }
+
 
         $inputList.on('ifChecked', function(event){ //ifCreated 事件应该在插件初始化之前绑定
             _this.onChange(event.target.value);
@@ -38,6 +50,7 @@ export default class RadioGroup extends React.Component {
             if(id === data[j].id){
                 tasteMonty = data[j].addM;
                 //console.log(data[j])
+                data[j].selectedIndex = j;
                 onSelected(data[j]);
                 break;
             }
@@ -60,7 +73,6 @@ export default class RadioGroup extends React.Component {
                                 )
                             })
                         }
-
                     </form>
                 </div>
             </div>

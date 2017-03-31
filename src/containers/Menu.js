@@ -59,10 +59,9 @@ class Menu extends React.Component {
         })
     }
     onClick = (d) => {
-
-
+        const {addToCart} = this.props;
         Popup.show(
-            <PopupList d={d} onClose = {(sel,d) =>this.onClose(sel,d)} />, { animationType: 'slide-up', maskProps, maskClosable: false }
+            <PopupList addToCart={addToCart} d={d} onClose = {(sel,d) =>this.onClose(sel,d)} />, { animationType: 'slide-up', maskProps, maskClosable: false }
         );
     };
 
@@ -118,7 +117,7 @@ class Menu extends React.Component {
 
 
 const mapStateToProps = state => {
-    const {selectedTab,getsList} = state;
+    const {selectedTab,getsList,addToCart} = state;
     const {
         isFetching,
         data:data,
@@ -133,7 +132,8 @@ const mapStateToProps = state => {
         getsList,
         isFetching,
         data,
-        isFailed
+        isFailed,
+        addToCart
     }
 }
 const mapDispatchToProps = dispatch => {

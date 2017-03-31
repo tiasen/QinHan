@@ -8,7 +8,7 @@ import Count from './Count';
 import CheckboxGroup from './CheckboxGroup';
 import RadioGroup from './RadioGroup';
 export default class PopupList extends React.Component{
-    onChange (obj,name,data){
+    onChange (obj,name,data,index){
         obj[name] = data;
         if(typeof data.addM != 'undefined'){
             if(name === 'taste'){
@@ -27,7 +27,7 @@ export default class PopupList extends React.Component{
         return obj;
     }
     render(){
-        const {d} = this.props;
+        const {d,addToCart} = this.props;
         let data = d.other;
         let obj = {
             taste : d.other['taste'] && d.other['taste'][0] ? d.other['taste'][0] : '',
@@ -57,13 +57,13 @@ export default class PopupList extends React.Component{
                     <div style={{ marginTop: 10, marginBottom: 10 }}>
                         <Accordion defaultActiveKey="0" className="my-accordion" accordion={true}>
                             <Accordion.Panel header="分量" style={{display:data['size'] && data['size'].length > 0 ? 'block':'none' }}>
-                                {data['size'] && data['size'].length > 0 ?<RadioGroup onSelected={size => this.onChange(obj,'size',size)} data={data['size']} /> : []}
+                                {data['size'] && data['size'].length > 0 ?<RadioGroup addToCart={addToCart} groupName={'size'} onSelected={size => this.onChange(obj,'size',size)} data={data['size']} /> : []}
                             </Accordion.Panel>
                             <Accordion.Panel header="口味" style={{display:data['taste'] && data['taste'].length > 0 ? 'block':'none' }}>
-                                {data['taste'] && data['taste'].length > 0 ? <RadioGroup onSelected={taste => this.onChange(obj,'taste',taste)} data={data['taste']} /> : []}
+                                {data['taste'] && data['taste'].length > 0 ? <RadioGroup addToCart={addToCart} onSelected={taste => this.onChange(obj,'taste',taste)} data={data['taste']} /> : []}
                             </Accordion.Panel>
                             <Accordion.Panel header="其他需求" style={{display:data['otherDemand'] && data['otherDemand'].length > 0 ? 'block':'none' }}>
-                                {data['otherDemand'] && data['otherDemand'].length > 0 ? <CheckboxGroup onSelected={otherDemand => this.onChange(obj,'otherDemand',otherDemand)} data={data['otherDemand']} /> : []}
+                                {data['otherDemand'] && data['otherDemand'].length > 0 ? <CheckboxGroup addToCart={addToCart} onSelected={otherDemand => this.onChange(obj,'otherDemand',otherDemand)} data={data['otherDemand']} /> : []}
                             </Accordion.Panel>
                         </Accordion>
                         <Count text="份数" onChooseNmber={(count) => this.onChange(obj,'count',count)} />
