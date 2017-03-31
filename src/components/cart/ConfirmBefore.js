@@ -1,8 +1,18 @@
 /**
  * Created by 365969 on 2017/3/31.
  */
-import { Card, Button,Flex,SwipeAction} from 'antd-mobile';
+import { Card, Button,Flex,SwipeAction,Popup} from 'antd-mobile';
 import EasyScroller from '../../lib/scroller/EasyScroller';
+import PopupList from '../common/PopupList';
+
+const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
+let maskProps;
+if (isIPhone) {
+    // Note: the popup content will not scroll.
+    maskProps = {
+        onTouchStart: e => e.preventDefault()
+    };
+}
 export default class ConfirmBefore extends React.Component{
     constructor(props){
         super(props);
@@ -15,11 +25,21 @@ export default class ConfirmBefore extends React.Component{
             myScroller:new EasyScroller(this.refs.scroller)
         })
     }
-    onModify(data){
-        console.log(data)
+    onModify(data,index){
+        console.log(this);
+        const {onStateChangeModify,addToCart} = this.props;
+        onStateChangeModify();
+        Popup.show(
+            <PopupList isModify={true} d = {data} currentIndex = {index} onClose = {(sel,d) =>this.onClose(sel,d)} />, { animationType: 'slide-up', maskProps, maskClosable: false }
+        );
+
+    }
+    onClose(sel,d){
+        this.setState({ sel });
+        Popup.hide();
     }
     render(){
-        const {data} = this.props;
+        const {addToCart} = this.props;
         return (
         <div style={{height:'100%',padding:15,boxSizing:'border-box'}}>
             <Card style={{height:'100%',padding:0}}>
@@ -29,17 +49,17 @@ export default class ConfirmBefore extends React.Component{
                             <span className="name">title</span>
                         </Flex.Item>
                         <Flex.Item>
-                            <span className="count"><small>总份数:&nbsp;{data.sum}</small></span>
+                            <span className="count"><small>总份数:&nbsp;{addToCart.sum}</small></span>
                         </Flex.Item>
                         <Flex.Item>
-                            <span className="total"><small>小计:&nbsp;{data.total}&nbsp;元</small></span>
+                            <span className="total"><small>总计:&nbsp;{addToCart.total}&nbsp;元</small></span>
                         </Flex.Item>
                     </Flex>
                 } />
 
                 <Card.Body style={{position:'relative',overflow:"hidden",padding:10}}>
                         <ul ref="scroller" className="cart-confirm-before-list" style={{width:'100%',position:'absolute',left:0,top:0}}>
-                            {data.list.map((item,i) => {
+                            {addToCart.list.map((item,i) => {
                                 return (
                                     <li key={i}>
                                         <SwipeAction
@@ -71,7 +91,7 @@ export default class ConfirmBefore extends React.Component{
                                             </Flex>
                                             </header>
                                             <section>
-                                                <p style={{display:item.size ? 'block' : 'none'}}>分量：{ item.size.name}</p>
+                                                <p style={{display:item.size ? 'block' : 'none'}}>份量：{ item.size.name}</p>
                                                 <p style={{display:item.taste ? 'block' : 'none'}}>口味：{ item.taste.name}</p>
                                                 <p style={{display:item.otherDemand && item.otherDemand.length > 0 ? 'block' : 'none'}}>
                                                     其他需求：{item.otherDemand && item.otherDemand.length > 0 ? item.otherDemand.join('、').toString():''}

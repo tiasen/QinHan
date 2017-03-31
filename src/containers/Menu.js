@@ -58,10 +58,11 @@ class Menu extends React.Component {
             selectedClassIndex:idx
         })
     }
+    //d:点击菜单列表时的当前列表数据
     onClick = (d) => {
         const {addToCart} = this.props;
         Popup.show(
-            <PopupList addToCart={addToCart} d={d} onClose = {(sel,d) =>this.onClose(sel,d)} />, { animationType: 'slide-up', maskProps, maskClosable: false }
+            <PopupList d={d} onClose = {(sel,d) =>this.onClose(sel,d)} />, { animationType: 'slide-up', maskProps, maskClosable: false }
         );
     };
 

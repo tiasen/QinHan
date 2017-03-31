@@ -11,7 +11,7 @@ export default class CheckBox extends React.Component {
     };
 
     componentDidMount() {
-        const {onSelected} = this.props;
+        const {onSelected,modifyData} = this.props;
         let node = this.refs.tasteForm;
         const _this = this;
         let $inputList = $(node).find('.testinput');
@@ -20,6 +20,16 @@ export default class CheckBox extends React.Component {
             radioClass: 'iradio_flat-blue',
             increaseArea: '20%' // optional
         });
+        if(modifyData){
+            //console.log($inputList)
+            $inputList.each((i,item) => {
+                modifyData.forEach((item2) => {
+                    if(item.value == item2){
+                        $inputList.eq(i).iCheck('check');
+                    }
+                })
+            });
+        }
 
         $inputList.on('ifChanged', function(event){ //ifCreated 事件应该在插件初始化之前绑定
 

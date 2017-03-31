@@ -14,9 +14,8 @@ export default class RadioGroup extends React.Component {
 
     }
     componentDidMount() {
-        const {data,addToCart,groupName} = this.props;
-        console.log(addToCart)
-        //onSelected(data[0]);
+        const {modifyData} = this.props;
+
         let node = this.refs.sizeForm;
         const _this = this;
         let $inputList = $(node).find('.testinput');
@@ -25,13 +24,12 @@ export default class RadioGroup extends React.Component {
             radioClass: 'iradio_flat-blue',
             increaseArea: '20%' // optional
         });
-        //let checkedIndex =
-        //data.forEach((item,i) => {
-        //
-        //})
-        if(addToCart.isModify){
-            if(addToCart.list[groupName]){
+        if(modifyData){
+            if(modifyData.selectedIndex){
                 //TODO : 修改默认选择
+                $inputList.eq(modifyData.selectedIndex).iCheck('check');
+            }else{
+                $inputList.eq(0).iCheck('check');
             }
         }else{
             $inputList.eq(0).iCheck('check');

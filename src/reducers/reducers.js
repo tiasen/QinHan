@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import {REQUEST_GETS,RECEIVE_GETS,SELECT_TAB,RECEIVE_GETS_FAILED,ADD_TOCART} from '../consts';
+import {REQUEST_GETS,RECEIVE_GETS,SELECT_TAB,RECEIVE_GETS_FAILED,ADD_TOCART,MODIFY_OFCART} from '../consts';
 
 var selectedTab = (state = 'home',action) => {
     switch (action.type){
@@ -81,9 +81,15 @@ const addToCart = (state = {
                 sum,
                 total
             };
+        case MODIFY_OFCART:
+            return {
+                ...state,
+                isModify:true
+            }
         default:return state;
     }
 }
+
 //const addToCartReducer = (state = {},action) => {
 //    switch(action.type){
 //        case ADD_TOCART :
