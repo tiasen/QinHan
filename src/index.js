@@ -25,7 +25,7 @@ const middleware = routerMiddleware(history)
 
 const store = createStore(
     reducers,
-    applyMiddleware(middleware,thunk)
+    applyMiddleware(middleware,thunk,logger)
 )
 require('../style.less');
 // Now you can dispatch navigation actions from anywhere!

@@ -20,7 +20,7 @@ body{
 .am-accordion-header{
   text-align:left;
 }
-/*------  空页面和报错页面  ------------------*/
+/*------  菜单空页面和报错页面  ------------------*/
 .errorPage{
   height:100%;
   background: url('src/lib/imgs/error.png') no-repeat center center;
@@ -31,6 +31,13 @@ body{
   background: url('src/lib/imgs/null.png') no-repeat center center;
   background-size:100%;
 }
+/*------  购物车空页面  ------------------*/
+.cartNull{
+  height:100%;
+  background: url('src/lib/imgs/cart-null.png') no-repeat center center;
+  background-size:100%;
+}
+
 /*------- 计步器样式  -------------*/
 .myStepper{
   overflow:hidden;
@@ -56,7 +63,7 @@ body{
     background:url('./src/lib/imgs/add.png') no-repeat center center;
     background-size:70%;
   }
-  .myStepperBtn:first-child{
+  .myStepperBtn:first-child {
     background:url('./src/lib/imgs/minus.png') no-repeat center center;
     background-size:70%;
   }
@@ -221,6 +228,9 @@ body{
       text-align:left;
       margin:0;
       line-height: 2em;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
     }
     .des{
       font-size:24px;
@@ -240,18 +250,42 @@ body{
     }
   }
 }
-.kindlist-item{
-  margin:0 15px;
-  height:100px;
-  border-bottom:dashed 2px #dad6d6;
-  font-size:28px;
-  line-height: 100px;
-  text-align: center;
-  background: none;
+
+.kindList-box{
+  height:100%;
+  .kindlist{
+    padding:0 15px;
+    position:relative;
+    background: none;
+    height:100px;
+    .kindlist-item{
+      display:block;
+      height:100%;
+      border-bottom:dashed 2px #dad6d6;
+      font-size:28px;
+      line-height: 98px;
+      text-align: center;
+      box-sizing:border-box;
+    }
+    &.selected{
+      background:#fff;
+      &:before{
+        content:'';
+        position:absolute;
+        top:0;
+        left:0;
+        width:6px;
+        height:100%;
+        background:#108ee9;
+      }
+    }
+  }
+
+  li:first-child span{
+    border-top:dashed 2px #dad6d6;
+  }
 }
-.kindlist li:first-child{
-  border-top:dashed 2px #dad6d6;
-}
+
 /* ----------- 购物车 css start  ------------*/
 .moneyInfo{
   // width:95%;
@@ -374,6 +408,103 @@ body{
     padding:0 20px;
   }
 }
+
+/* ------  cart。------------*/
+
+.cart-confirm-before-header{
+  font-size:32px;
+  height:70px;
+  line-height:70px;
+  padding:20px;
+  .am-flexbox{
+    width:100%;
+  }
+  .am-flexbox-item:first-child{
+    text-align:left;
+    flex:3;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .am-flexbox-item:last-child{
+    text-align:center;
+    flex:2;
+  }
+  .am-flexbox-item{
+    flex:1;
+    text-align:center;
+    white-space:nowrap;
+    margin:0;
+    .name{
+      font-size:36px;
+    }
+    .total{
+      color:#f00;
+
+    }
+  }
+}
+.cart-confirm-before-list{
+  li:first-child{
+    border-top:solid 2px #ddd;
+  }
+  li{
+    border-bottom:solid 2px #ddd;
+    //margin-bottom:10px;
+    header{
+      padding:0 20px;
+      font-size:32px;
+      height:70px;
+      line-height:70px;
+      border-bottom:dashed 2px #ddd;
+      .am-flexbox-item:first-child{
+        text-align:left;
+        flex:3;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+      .am-flexbox-item:last-child{
+        text-align:center;
+        flex:2;
+      }
+      .am-flexbox-item{
+        flex:1;
+        white-space:nowrap;
+        text-align:center;
+        margin:0;
+        .name{
+
+        }
+        .count{
+
+        }
+        .total{
+          color:#f00;
+
+        }
+      }
+    }
+    section{
+      min-height:20px;
+      padding:0 20px;
+      background:#f5f5f5;
+      p{
+        text-align:left;
+        font-size:28px;
+        line-height:2em;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
 #test{
   width:100px;
   height:100px;

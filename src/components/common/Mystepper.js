@@ -1,6 +1,7 @@
 /**
  * Created by 365969 on 2017/3/29.
  */
+import { Toast} from 'antd-mobile';
 
     /**
      * 说明：
@@ -19,6 +20,19 @@ class Mystepper extends React.Component{
             value
         }
     }
+    componentDidMount(){
+        let val = this.refs.input.value;
+        const min =  this.props.min || this.props.min === 0 ? this.props.min : 1;
+        const max =  this.props.max ;
+        const minus = this.refs.minusBtn;
+        const add = this.refs.addBtn;
+        if(val == min){
+            $(minus).addClass('disabled')
+        }
+        if(val == max){
+            $(add).addClass('disabled')
+        }
+    }
     onMinus = () => {
         let val = this.refs.input.value;
         const min =  this.props.min || this.props.min === 0 ? this.props.min : 1;
@@ -35,6 +49,8 @@ class Mystepper extends React.Component{
             this.refs.input.value--;
             $(add).removeClass('disabled')
         }
+        if($(minus).hasClass('disabled')) return ;
+        this.props.onChangeValue(this.refs.input.value);
     }
     onAdd = () =>{
         let val = this.refs.input.value;
@@ -55,37 +71,45 @@ class Mystepper extends React.Component{
             this.refs.input.value++;
             $(minus).removeClass('disabled')
         }
+        if($(add).hasClass('disabled')) return ;
         onChangeValue(this.refs.input.value);
     }
     onChangeVal = (e) => {
-        console.log('change')
         const min =  this.props.min || this.props.min === 0 ? this.props.min : 1;
         const {max} = this.props;
         const minus = this.refs.minusBtn;
         const add = this.refs.addBtn;
         $(this.refs.input).change((e)=>{
             let val = e.target.value;
-            if(val <= min + 1){
-                $(minus).addClass('disabled')
+            console.log($(minus).children('button'))
+            if(!isNaN(val)){
+                if(val <= min + 1){
+                    $(minus).addClass('disabled')
+                    $(minus).children('button').disabled = true;
+                }else{
+                    $(minus).removeClass('disabled')
+                }
+                if(val <= min){
+                    this.refs.input.value = min;
+                }
+                if(val >= max - 1){
+                    $(add).addClass('disabled')
+                }else{
+                    $(add).removeClass('disabled')
+                }
+                if(val >= max){
+                    this.refs.input.value = max;
+                }
             }else{
-                $(minus).removeClass('disabled')
-            }
-            if(val <= min){
                 this.refs.input.value = min;
             }
-            if(val >= max - 1){
-                $(add).addClass('disabled')
-            }else{
-                $(add).removeClass('disabled')
-            }
-            if(val >= max){
-                this.refs.input.value = max;
-            }
-        })
+
+        });
 
         this.setState({
             value:e.target.value
-        })
+        });
+        this.props.onChangeValue(this.refs.input.value);
     }
     render(){
         return (

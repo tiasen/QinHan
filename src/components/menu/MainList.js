@@ -65,7 +65,7 @@ export default class MainList extends React.Component {
         //console.log(this.props)
         const node = this.refs.scroller;
         this.setState({
-            myScroller:new EasyScroller(node,{scrollingX:false,scrollingY:true})
+            myScroller:new EasyScroller(node)
         })
 
     }

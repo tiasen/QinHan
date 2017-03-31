@@ -1,31 +1,34 @@
-import {bindActionCrateors} from 'redux';
+import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import { Toast,Popup, List, Button,Icon,Accordion ,Flex} from 'antd-mobile';
 
 import ClassList from './../components/menu/ClassList';
 import MainList from './../components/menu/MainList';
-import {selectTab,fetchGetsIfNeed} from '../actions/actions';
-import Count from '../components/menu/Count';
-import Taste from '../components/menu/Taste';
-import Size from '../components/menu/Size';
+import {selectTab,fetchGetsIfNeed,addToCart} from '../actions/actions';
+
 import ErrorPage from '../components/common/ErrorPage';
 import NullPage from '../components/common/NullPage';
-
+import PopupList from '../components/common/PopupList';
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
 let maskProps;
 if (isIPhone) {
     // Note: the popup content will not scroll.
     maskProps = {
-        onTouchStart: e => e.preventDefault(),
+        onTouchStart: e => e.preventDefault()
     };
 }
+
+/**
+ * state:
+ *      selectedClassIndex:选中类别的index，默认为第一个
+ *      sel: popup 显示隐藏 *
+ */
 class Menu extends React.Component {
     constructor(...props){
         super(...props);
         this.state = {
             selectedClassIndex:0,
-            sel:'',
-            count: 1
+            sel:''
         }
     }
     componentWillMount(){
@@ -55,53 +58,21 @@ class Menu extends React.Component {
             selectedClassIndex:idx
         })
     }
-    onClick = (data) => {
-        Popup.show(
-            <div>
-                <List renderHeader={
-                    () => (
-                        <div style={{ position: 'relative' }}>
-                          {data.name}
-                          <span style={{position: 'absolute', right: 3, top: -5}}
-                                onClick={() => this.onClose('cancel')}>
-                            <Icon type="cross" />
-                          </span>
-                        </div>
-                    )}
-                      className="popup-list"
-                >
-                    <div style={{ marginTop: 10, marginBottom: 10 }}>
-                        <Accordion defaultActiveKey="0" className="my-accordion" accordion={true}>
-                            <Accordion.Panel header="大小份" style={{display:data['size'] && data['size'].length > 0 ? 'block':'none' }}>
-                                {data['size'] && data['size'].length > 0 ?<Size onSizeSelected={sizeObj => this.onSizeSelected(sizeObj)} data={data['size']} /> : []}
-                            </Accordion.Panel>
-                            <Accordion.Panel header="口味" style={{display:data['taste'] && data['taste'].length > 0 ? 'block':'none' }}>
-                                {data['taste'] && data['taste'].length > 0 ? <Taste onTasteSelected={tasteObj => this.onTasteSelected(tasteObj)} data={data['taste']} /> : []}
-                            </Accordion.Panel>
-                        </Accordion>
-                        <Count text="份数" onChooseNmber={(num) => this.onChangeNumber(num)} />
+    onClick = (d) => {
 
-                    </div>
-                </List>
-                <ul style={{ padding: '0.18rem 0.3rem', listStyle: 'none' }}>
-                    <li>小计：<span style={{color:'#f00'}}>￥ {data.price}</span></li>
-                    <li style={{ marginTop: '0.18rem' }}>
-                        <Button type="primary" onClick={() => this.onClose('cancel')}>加入点菜单</Button>
-                    </li>
-                </ul>
-            </div>, { animationType: 'slide-up', maskProps, maskClosable: false }
+
+        Popup.show(
+            <PopupList d={d} onClose = {(sel,d) =>this.onClose(sel,d)} />, { animationType: 'slide-up', maskProps, maskClosable: false }
         );
     };
-    onTasteSelected(taste){
-        console.log(taste);
-    }
-    onSizeSelected(size){
-        console.log(size)
-    }
-    onChangeNumber = (count) => {
-        this.setState({ count });
-    };
-    onClose = (sel) => {
+
+
+    onClose = (sel,d) => {
+        //console.log(d)
+        //console.log(this.props)
+        if(d){
+            this.props.dispatch(addToCart(d))
+        }
         this.setState({ sel });
         Popup.hide();
     };
@@ -138,10 +109,10 @@ class Menu extends React.Component {
 
     }
     componentDidUpdate(){
-        if(!this.props.isFetching){
+        const {isFetching,data} = this.props;
+        if(!isFetching){
             Toast.hide();
         }
-
     }
 }
 
@@ -164,5 +135,10 @@ const mapStateToProps = state => {
         data,
         isFailed
     }
+}
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        addToCart:addToCart
+    },dispatch)
 }
 export default connect(mapStateToProps)(Menu)

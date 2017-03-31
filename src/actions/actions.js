@@ -1,4 +1,4 @@
-import {URL,REQUEST_GETS,RECEIVE_GETS,SELECT_TAB,RECEIVE_GETS_FAILED} from '../consts';
+import {URL,REQUEST_GETS,RECEIVE_GETS,SELECT_TAB,RECEIVE_GETS_FAILED,ADD_TOCART} from '../consts';
 
 export const selectTab = tab => ({
     type:SELECT_TAB,
@@ -57,5 +57,14 @@ const shouldFetchGets = (state,tab) => {
 export const fetchGetsIfNeed = tab => (dispatch,getState) => {
     if(shouldFetchGets(getState(),tab)){
         return dispatch(fetchGets(tab));
+    }
+}
+
+
+
+export const addToCart = (data)=>{
+    return {
+        type:ADD_TOCART,
+        data
     }
 }

@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const pxtorem = require('postcss-pxtorem');
-const publicPath = 'http://localhost:3000/';
+const publicPath = 'http://localhost:8800/';
 const hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
 // 1. 如需添加私有图标，可在如下的 svgDirs 数组中加入本地 svg 文件路径
 const svgDirs = [

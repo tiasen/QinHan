@@ -4,16 +4,18 @@
 require('../../lib/icheck/blue.css');
 require('../../lib/icheck/icheck.js');
 
-export default class CheckBox extends React.Component {
+export default class RadioGroup extends React.Component {
     static propTypes = {
-        data:React.PropTypes.array.isRequired
+        data:React.PropTypes.array.isRequired,
+        onSelected:React.PropTypes.func.isRequired
     };
     constructor(prop){
         super(prop);
-        const {data,onSizeSelected} = this.props;
-        onSizeSelected(data[0]);
+
     }
     componentDidMount() {
+        //const {data,onSelected} = this.props;
+        //onSelected(data[0]);
         let node = this.refs.sizeForm;
         const _this = this;
         let $inputList = $(node).find('.testinput');
@@ -31,12 +33,12 @@ export default class CheckBox extends React.Component {
     }
     onChange(id){
         let tasteMonty = 0;
-        const {data,onSizeSelected} = this.props;
+        const {data,onSelected} = this.props;
         for(let j = 0; j <data.length; j++ ){
             if(id === data[j].id){
                 tasteMonty = data[j].addM;
                 //console.log(data[j])
-                onSizeSelected(data[j]);
+                onSelected(data[j]);
                 break;
             }
         }

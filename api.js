@@ -47,10 +47,8 @@ app.get('/api/menu',(req,res) =>{
     fs.readFile('./list.json','utf-8',(err,data) => {
         if(err) throw new Error(err);
         let json = JSON.parse(data);
-        setTimeout(function(){
-            res.json(json);
+        res.json(json);
 
-        },500)
     })
 
 });

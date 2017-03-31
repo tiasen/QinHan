@@ -2,7 +2,7 @@
  * Created by 365969 on 2017/3/28.
  */
 import { List, Stepper } from 'antd-mobile';
-import Mystepper from '../common/Mystepper';
+import Mystepper from './Mystepper';
 export default class Demo extends React.Component {
     static propTypes = {
         onChooseNmber:React.PropTypes.func.isRequired,

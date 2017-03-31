@@ -5,13 +5,12 @@ var EasyScroller = function(content, options) {
 
     this.content = content;
     this.container = content.parentNode;
-    this.options = options || {};
-
+    this.options = options || {scrollingX:false,scrollingY:true};
     // create Scroller instance
     var that = this;
     this.scroller = new Scroller(function(left, top, zoom) {
         that.render(left, top, zoom);
-    }, options);
+    }, this.options);
 
     // bind events
     this.bindEvents();
