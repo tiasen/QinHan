@@ -1,4 +1,4 @@
-import {URL,REQUEST_GETS,RECEIVE_GETS,SELECT_TAB,RECEIVE_GETS_FAILED,ADD_TOCART,MODIFY_OFCART} from '../consts';
+import {URL,REQUEST_GETS,RECEIVE_GETS,SELECT_TAB,RECEIVE_GETS_FAILED,ADD_TOCART,MODIFY_OFCART,DELETE_OFCART} from '../consts';
 
 export const selectTab = tab => ({
     type:SELECT_TAB,
@@ -69,8 +69,16 @@ export const addToCart = (data)=>{
     }
 }
 
-export const modifyOfCart = () => {
+export const modifyOfCart = (index,data) => {
     return {
-        type:MODIFY_OFCART
+        type:MODIFY_OFCART,
+        index,
+        data
+    }
+};
+export const deleteOfCart = index => {
+    return {
+        type:DELETE_OFCART,
+        index
     }
 }

@@ -2,22 +2,14 @@ import {connect} from 'react-redux';
 import ConfirmBefore from './../components/cart/ConfirmBefore';
 import ConfirmAfter from './../components/cart/ConfirmAfter';
 import CartNullPage from '../components/common/CartNullPage';
-import {modifyOfCart} from '../actions/actions';
+import {modifyOfCart,deleteOfCart} from '../actions/actions';
 class Cart extends React.Component {
-    componentDidMount() {
-        console.log(this.props)
 
+    onStateChangeModify (index,data) {
+        this.props.dispatch(modifyOfCart(index,data))
     }
-
-    onshow(data) {
-        const {addToCart,getsList}  = this.props;
-        Popup.show(
-            <PopupList addToCart={addToCart} currentIndex = {index}  onClose = {(sel,d) =>this.onClose(sel,d)} />, { animationType: 'slide-up', maskProps, maskClosable: false }
-        );
-    }
-
-    onStateChangeModify = () => {
-        this.props.dispatch(modifyOfCart())
+    onDelete(index){
+        this.props.dispatch(deleteOfCart(index));
     }
     render() {
         const {addToCart,getsList} = this.props;
@@ -27,7 +19,7 @@ class Cart extends React.Component {
             if (addToCart.list && addToCart.list.length > 0) {
                 return (
                     <div style={{width:'100%',height:'100%'}}>
-                        <ConfirmBefore onStateChangeModify={this.onStateChangeModify} addToCart={addToCart}/>
+                        <ConfirmBefore onDelete={index => this.onDelete(index)} onStateChangeModify={(index,data) =>this.onStateChangeModify(index,data)} addToCart={addToCart}/>
                     </div>
                 )
             } else {
@@ -38,10 +30,8 @@ class Cart extends React.Component {
 
     }
 }
-
 const mapStateToProps = state => {
     const {addToCart} = state;
-    console.log(addToCart);
     return {
         addToCart
     }

@@ -7,8 +7,11 @@ import {  List, Button,Icon,Accordion ,Flex} from 'antd-mobile';
 import Count from './Count';
 import CheckboxGroup from './CheckboxGroup';
 import RadioGroup from './RadioGroup';
+
 export default class PopupList extends React.Component{
-    onChange (obj,name,data,index){
+
+    onChange (obj,name,data){
+        const {isModify} = this.props;
         obj[name] = data;
         if(typeof data.addM != 'undefined'){
             if(name === 'taste'){
@@ -19,11 +22,14 @@ export default class PopupList extends React.Component{
             }
 
         }
+        if(isModify){
+            obj.isChanged = true;
+        }
         obj.subtotal = (obj.tasteAddM + obj.sizeAddM + obj.price) * obj.count;
 
         $('#menu-subtotal').text(obj.subtotal);
-
         //console.log(obj)
+
         return obj;
     }
     render(){
@@ -34,7 +40,6 @@ export default class PopupList extends React.Component{
         }else{
             data = d;
         }
-        console.log(data)
         let obj = {
             taste : data.other['taste'] && data.other['taste'][0] ? data.other['taste'][0] : '',
             size : data.other['size'] && data.other['size'][0] ? data.other['size'][0] : '',
@@ -45,7 +50,8 @@ export default class PopupList extends React.Component{
             sizeAddM:0,
             tasteAddM:0,
             subtotal:data.price,
-            courceData:data
+            courceData:data,
+            isChanged:false
         };
         return (
             <div>
@@ -73,12 +79,12 @@ export default class PopupList extends React.Component{
                                 {data.other['otherDemand'] && data.other['otherDemand'].length > 0 ? <CheckboxGroup  modifyData={isModify?d['otherDemand']:''}  onSelected={otherDemand => this.onChange(obj,'otherDemand',otherDemand)} data={data.other['otherDemand']} /> : []}
                             </Accordion.Panel>
                         </Accordion>
-                        <Count text="份数" onChooseNmber={(count) => this.onChange(obj,'count',count)} />
+                        <Count text="份数" defaultValue={isModify ? d.count:1} onChooseNmber={(count) => this.onChange(obj,'count',count)} />
 
                     </div>
                 </List>
                 <ul style={{ padding: '0.18rem 0.3rem', listStyle: 'none' }}>
-                    <li>小计：<span style={{color:'#f00'}}>￥ <span id="menu-subtotal">{data.price}</span></span></li>
+                    <li>小计：<span style={{color:'#f00'}}>￥ <span id="menu-subtotal">{isModify ? d.subtotal : data.price}</span></span></li>
                     <li style={{ marginTop: '0.18rem' }}>
                         <Button type="primary" onClick={() => this.onClose('cancel',obj)}>加入点菜单</Button>
                     </li>
@@ -87,7 +93,8 @@ export default class PopupList extends React.Component{
         )
     }
     onClose(cel,d){
-        const {onClose} = this.props;
-        onClose(cel,d);
-    }
+        const {onClose,currentIndex} = this.props;
+        onClose(cel,d,currentIndex);
+
+   }
 }

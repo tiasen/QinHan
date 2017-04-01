@@ -104,7 +104,6 @@ class Tabs extends React.Component {
     }
 }
 const mapStateToProps = state => {
-    console.log(state)
     const {selectedTab,addToCart} = state;
     return {
         selectedTab,

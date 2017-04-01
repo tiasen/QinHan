@@ -12,11 +12,11 @@ export default class Demo extends React.Component {
         this.props.onChooseNmber(val)
     };
     render() {
-        const {text} = this.props;
+        const {text,defaultValue} = this.props;
         return (
             <List>
                 <List.Item extra={
-                  <Mystepper onChangeValue = {(val) => this.onChange(val)} />
+                  <Mystepper defaultValue={parseInt(defaultValue)} onChangeValue = {(val) => this.onChange(val)} />
                   }
                            wrap
                 >

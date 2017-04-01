@@ -16,6 +16,7 @@ class Mystepper extends React.Component{
     constructor(prop){
         super(prop);
         let value =  this.props.defaultValue || this.props.defaultValue === 0 ? this.props.defaultValue : 1
+
         this.state = {
             value
         }
@@ -49,7 +50,7 @@ class Mystepper extends React.Component{
             this.refs.input.value--;
             $(add).removeClass('disabled')
         }
-        if($(minus).hasClass('disabled')) return ;
+        if(val <= min) return ;
         this.props.onChangeValue(this.refs.input.value);
     }
     onAdd = () =>{
@@ -71,7 +72,7 @@ class Mystepper extends React.Component{
             this.refs.input.value++;
             $(minus).removeClass('disabled')
         }
-        if($(add).hasClass('disabled')) return ;
+        if(val >= max) return ;
         onChangeValue(this.refs.input.value);
     }
     onChangeVal = (e) => {
@@ -81,7 +82,7 @@ class Mystepper extends React.Component{
         const add = this.refs.addBtn;
         $(this.refs.input).change((e)=>{
             let val = e.target.value;
-            console.log($(minus).children('button'))
+            //console.log($(minus).children('button'))
             if(!isNaN(val)){
                 if(val <= min + 1){
                     $(minus).addClass('disabled')
@@ -105,7 +106,6 @@ class Mystepper extends React.Component{
             }
 
         });
-
         this.setState({
             value:e.target.value
         });

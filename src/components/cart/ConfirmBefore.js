@@ -1,10 +1,11 @@
 /**
  * Created by 365969 on 2017/3/31.
  */
-import { Card, Button,Flex,SwipeAction,Popup} from 'antd-mobile';
+import { Card, Button,Flex,SwipeAction,Popup,Modal} from 'antd-mobile';
 import EasyScroller from '../../lib/scroller/EasyScroller';
 import PopupList from '../common/PopupList';
 
+const alert = Modal.alert;
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
 let maskProps;
 if (isIPhone) {
@@ -26,22 +27,34 @@ export default class ConfirmBefore extends React.Component{
         })
     }
     onModify(data,index){
-        console.log(this);
-        const {onStateChangeModify,addToCart} = this.props;
-        onStateChangeModify();
+
         Popup.show(
-            <PopupList isModify={true} d = {data} currentIndex = {index} onClose = {(sel,d) =>this.onClose(sel,d)} />, { animationType: 'slide-up', maskProps, maskClosable: false }
+            <PopupList isModify={true} d = {data} currentIndex = {index} onClose = {(sel,d,index) =>this.onClose(sel,d,index)} />, { animationType: 'slide-up', maskProps, maskClosable: false }
         );
 
     }
-    onClose(sel,d){
+    onClose(sel,d,index){
+        if(d && d.isChanged && typeof index != 'undefined'){
+            const {onStateChangeModify} = this.props;
+            onStateChangeModify(index,d);
+        }
         this.setState({ sel });
         Popup.hide();
+    }
+    onDelete(item,i){
+        const {onDelete} =  this.props;
+        const alertInstance = alert('删除', `确定删除 ${item.name} 么?`, [
+            { text: '取消', onPress: () => {}, style: 'default' },
+            { text: '确认', onPress: () => deleteFn(), style: { fontWeight: 'bold' } }
+        ]);
+        function deleteFn(){
+            onDelete(i);
+        }
     }
     render(){
         const {addToCart} = this.props;
         return (
-        <div style={{height:'100%',padding:15,boxSizing:'border-box'}}>
+        <div style={{height:'100%',padding:10,boxSizing:'border-box'}}>
             <Card style={{height:'100%',padding:0}}>
                 <Card.Header className="cart-confirm-before-header" title={
                     <Flex wrap={'nowrap'} >
@@ -72,7 +85,7 @@ export default class ConfirmBefore extends React.Component{
                                                 },
                                                 {
                                                   text: '删除',
-                                                  onPress: () => console.log('删除'),
+                                                  onPress: () => this.onDelete(item,i),
                                                   style: { backgroundColor: '#F4333C', color: 'white' },
                                                 }
                                               ]}
