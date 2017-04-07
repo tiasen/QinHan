@@ -9,6 +9,7 @@
   "author": "tiasen",
   "license": "ISC",
   "dependencies": {
+    "antd": "^2.9.0",
     "antd-mobile": "~1.0.0",
     "babel-runtime": "~6.11.6",
     "classnames": "^2.2.5",

@@ -1,4 +1,4 @@
-export const URL = 'http://10.224.196.122:8000';
+export const URL = 'http://localhost:8000';
 
 export const REQUEST_GETS = 'REQUEST_GETS';
 export const RECEIVE_GETS = 'RECEIVE_GETS';
