@@ -32,6 +32,10 @@ const addMenuItem = (state = {
 
 const menuList = (state = {},action) => {
     switch(action.type){
+        case ADD_MENU_ITEM:
+                console.log(state)
+                state[action.path].list.push(action.data)
+
         case GET_MENU_LIST :
             return {
                 ...state,

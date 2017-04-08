@@ -7,9 +7,9 @@ import {
 } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
-import TreeSelect from './TreeSelect';
-import CheckboxGroup from './CheckboxGroup';
-import UploadAvatar from './UploadAvatar';
+import TreeSelect from './../common/TreeSelect';
+import CheckboxGroup from './../common/CheckboxGroup';
+import UploadAvatar from './../common/UploadAvatar';
 const defaultCheckedList = ['Apple', 'Orange'];
 const taste = [
     {
@@ -195,10 +195,14 @@ export default class CollectionsPage extends React.Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        const {addMenuItem} = this.props;
+        const {addMenuItem,titleText} = this.props;
         this.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+                addMenuItem(titleText,values);
+                this.setState({ visible: false });
+            }else{
+                //TODO:ERROR
             }
         });
     }
@@ -218,7 +222,7 @@ export default class CollectionsPage extends React.Component {
         if (info.file.status === 'done') {
             // Get this url from response in real world.
             this.getBase64(info.file.originFileObj, imageUrl => this.setState({ imageUrl }));
-            return info.file;
+            return info.file.name;
         }
     }
     saveFormRef = (form) => {
