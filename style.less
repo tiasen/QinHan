@@ -4,13 +4,75 @@ h1,h2,h3,h4,h5,h6,p,li,ol,ul{
 }
 ol,li,ul,dt,dd,dl{
   list-style: none;
-
 }
 body{
   overflow:hidden;
   font-family: '微软雅黑';
   box-sizing: border-box;
   text-align:center;
+}
+
+/*--  风琴效果展开内容背景色----*/
+.am-accordion-content-active{
+  background:#f5f5f5!important;
+}
+/*--  风琴效果头部----*/
+.am-accordion-header{
+  text-align:left;
+}
+/*------  菜单空页面和报错页面  ------------------*/
+.errorPage{
+  height:100%;
+  background: url('src/lib/imgs/error.png') no-repeat center center;
+  background-size:100%;
+}
+.nullPage{
+  height:100%;
+  background: url('src/lib/imgs/null.png') no-repeat center center;
+  background-size:100%;
+}
+/*------  购物车空页面  ------------------*/
+.cartNull{
+  height:100%;
+  background: url('src/lib/imgs/cart-null.png') no-repeat center center;
+  background-size:100%;
+}
+
+/*------- 计步器样式  -------------*/
+.myStepper{
+  overflow:hidden;
+  display:flex;
+  justify-content: space-between;
+  .count{
+    min-width:0px;
+    text-align:center;
+    input{
+      width:80%;
+      border:none;
+      height:100%;
+      text-align:center;
+    }
+  }
+  .myStepperBtn{
+    min-width:60px;
+    min-height:60px;
+    border:solid #8a8a8a 1px;
+    border-radius:5px;
+    line-height:60px;
+    text-align:center;
+    background:url('./src/lib/imgs/add.png') no-repeat center center;
+    background-size:70%;
+  }
+  .myStepperBtn:first-child {
+    background:url('./src/lib/imgs/minus.png') no-repeat center center;
+    background-size:70%;
+  }
+  .myStepperBtn.disabled{
+    opacity:0.5;
+  }
+  .myStepperBtn:active:not(.disabled){
+    background-color:#aaa;
+  }
 }
 
 /* --------------- tabs css start  ---------------*/
@@ -166,6 +228,9 @@ body{
       text-align:left;
       margin:0;
       line-height: 2em;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
     }
     .des{
       font-size:24px;
@@ -185,18 +250,42 @@ body{
     }
   }
 }
-.kindlist-item{
-  margin:0 15px;
-  height:100px;
-  border-bottom:dashed 2px #dad6d6;
-  font-size:28px;
-  line-height: 100px;
-  text-align: center;
-  background: none;
+
+.kindList-box{
+  height:100%;
+  .kindlist{
+    padding:0 15px;
+    position:relative;
+    background: none;
+    height:100px;
+    .kindlist-item{
+      display:block;
+      height:100%;
+      border-bottom:dashed 2px #dad6d6;
+      font-size:28px;
+      line-height: 98px;
+      text-align: center;
+      box-sizing:border-box;
+    }
+    &.selected{
+      background:#fff;
+      &:before{
+        content:'';
+        position:absolute;
+        top:0;
+        left:0;
+        width:6px;
+        height:100%;
+        background:#108ee9;
+      }
+    }
+  }
+
+  li:first-child span{
+    border-top:dashed 2px #dad6d6;
+  }
 }
-.kindlist li:first-child{
-  border-top:dashed 2px #dad6d6;
-}
+
 /* ----------- 购物车 css start  ------------*/
 .moneyInfo{
   // width:95%;
@@ -296,14 +385,143 @@ body{
     }
   }
 }
-
 /*  ------------------  加载动画  --------------- */
 .am-toast{
-  bottom:100px!important;
-  height:auto!important;
   .am-toast-notice-content{
     transform:translateY(-50%);
   }
 }
+/*------- 菜单加载失败 --------------*/
+
+/* ------  菜单口味选择等。。------------*/
+.tasteCheck{
+  height:80px;
+  line-height:80px;
+  font-size:32px;
+  width:50%;
+  overflow: hidden;
+  float:left;
+  padding:0 20px;
+  text-align:left;
+  box-sizing:border-box;
+  span{
+    padding:0 20px;
+  }
+}
+
+/* ------  cart。------------*/
+
+.cart-confirm-before-header{
+  font-size:32px;
+  height:70px;
+  line-height:70px;
+  padding:20px;
+  .am-flexbox{
+    width:100%;
+  }
+  .am-flexbox-item:first-child{
+    text-align:left;
+    flex:5;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .am-flexbox-item:last-child{
+    text-align:right;
+    flex:4;
+  }
+  .am-flexbox-item{
+    flex:3;
+    text-align:center;
+    white-space:nowrap;
+    margin:0;
+    .name{
+      font-size:36px;
+    }
+    .total{
+      color:#f00;
+
+    }
+  }
+}
+.cart-confirm-before-list{
+  li:first-child{
+    border-top:solid 2px #ddd;
+  }
+  li{
+    border-bottom:solid 2px #ddd;
+    header{
+      padding:0 20px;
+      font-size:32px;
+      height:70px;
+      line-height:70px;
+      border-bottom:dashed 2px #ddd;
+      .am-flexbox-item:first-child{
+        text-align:left;
+        flex:5;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+      .am-flexbox-item:last-child{
+        text-align:right;
+        flex:4;
+      }
+      .am-flexbox-item{
+        flex:3;
+        white-space:nowrap;
+        text-align:center;
+        margin:0;
+        .name{
+
+        }
+        .count{
+
+        }
+        .total{
+          color:#f00;
+
+        }
+      }
+    }
+    section{
+      min-height:20px;
+      padding:0 20px;
+      background:#f5f5f5;
+      p{
+        text-align:left;
+        font-size:28px;
+        line-height:2em;
+      }
+    }
+  }
+}
+.personal{
+  header{
+    height:400px;
+    background:#108ee9;
+    position:relative;
+    div.box{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      .img{
+        background:#fff url('./src/lib/imgs/avatar.png') no-repeat center center;
+        background-size:100%;
+        width:180px;
+        height:180px;
+        border-radius:50%;
+        overflow: hidden;
+      }
+      p{
+        color:#fff;
+        font-size:32px;
+        line-height:3em;
+      }
+    }
+  }
+}
+
 
 

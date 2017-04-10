@@ -10,7 +10,7 @@ const express = require("express");
 const path = require('path');
 const app = express();
 const consolidate = require('consolidate');
-app.set('port',3000);
+app.set('port',8800);
 app.engine('html',consolidate.hogan);
 app.set('view engine','html');
 app.set('views',path.resolve(__dirname,'./dist'))

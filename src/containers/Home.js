@@ -7,6 +7,7 @@ export default class Home extends React.Component{
         return (
             <div>
                 <MyCarousel />
+                <div id="test">testttst</div>
                 <div>
                     <button onClick={() => (history.push('/about')) }>about</button>
                     <button onClick={() => (history.push('/topics')) }>topics</button>

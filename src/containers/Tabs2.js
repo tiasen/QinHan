@@ -11,20 +11,30 @@ class Tabs extends React.Component {
         this.state = {
             selectedTab: selectedTab,
             hidden: false,
-            dot:true
+            dot:false,
+            badge:0
         };
     }
     componentDidMount(){
 
     }
     handleClick(tab){
-        const {selectTab} = this.props;
+        const {selectTab,addToCart} = this.props;
         selectTab(tab);
         this.setState({
-            selectedTab:tab
+            selectedTab:tab,
+            badge:addToCart.sum
         })
     }
+    componentWillReceiveProps(nextProps){
+        const {addToCart} = this.props;
+        if(addToCart.sum !== nextProps.addToCart.sum){
+            this.setState({
+                badge:nextProps.addToCart.sum
+            })
+        }
 
+    }
     render() {
         //console.log(this.props)
         const {history} = this.props;
@@ -68,6 +78,7 @@ class Tabs extends React.Component {
                     selectedIcon={<Icon type={require('../svg/cart1.svg')} size="md" />}
                     title="购物车"
                     key="购物车"
+                    badge={this.state.badge }
                     selected={this.state.selectedTab === 'cart'}
                     onPress={() => {
                         history.push('cart');
@@ -93,9 +104,10 @@ class Tabs extends React.Component {
     }
 }
 const mapStateToProps = state => {
-    const {selectedTab} = state;
+    const {selectedTab,addToCart} = state;
     return {
-        selectedTab
+        selectedTab,
+        addToCart
     }
 };
 
