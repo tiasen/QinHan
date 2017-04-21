@@ -1,20 +1,20 @@
 /**
  * Created by 365969 on 2017/4/6.
  */
-import {Icon,Modal} from 'antd'
+import {Icon} from 'antd';
+import ViewModal from './ViewModal';
 export default class MenuItem extends React.Component{
     state = {
-        visible:false
+        viewVisible:false
     }
-    showModal = ()　=> {
+    showViewModel = ()　=> {
         this.setState({
-            visible:true
+            viewVisible:true
         })
     }
-    handleCancel = (e) => {
-        console.log(e);
+    cancelViewModel = (e) => {
         this.setState({
-            visible: false,
+            viewVisible: false,
         });
     }
     render(){
@@ -23,7 +23,7 @@ export default class MenuItem extends React.Component{
         return (
             <div className="menuitem">
                 <div className="bj">
-                    <div onClick={this.showModal}>
+                    <div onClick={this.showViewModel}>
                         <Icon type="eye-o" />
                     </div>
                     <div onClick={() => console.log('edit')}>
@@ -33,13 +33,7 @@ export default class MenuItem extends React.Component{
                         <Icon type="delete" />
                     </div>
                 </div>
-                <Modal title="Basic Modal" visible={this.state.visible}
-                       onCancel={this.handleCancel} footer={null}
-                >
-                    <p>some contents...</p>
-                    <p>some contents...</p>
-                    <p>some contents...</p>
-                </Modal>
+               <ViewModal data={data} viewVisible={this.state.viewVisible} handleCancel={this.cancelViewModel} />
                 {data.name}
             </div>
         )

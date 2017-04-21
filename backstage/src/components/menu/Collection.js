@@ -52,7 +52,8 @@ const CollectionCreateForm = Form.create()(
                    title="Create a new collection"
                    okText="Create"
                    onCancel={onCancel}
-                   onOk={onCreate}>
+                   onOk={onCreate}
+                   maskClosable={false}>
                 <Form onSubmit={onCreate}>
 
                     <FormItem

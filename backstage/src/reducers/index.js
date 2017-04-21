@@ -7,7 +7,7 @@ import {routerReducer} from 'react-router-redux';
 import {ADD_MENU_ITEM,GET_MENU_LIST } from '../consts'
 
 const getList = (state={
-    list:[]
+    list:[{name:'name',description:'description',switch:true}]
 },action) => {
     switch(action.type){
         case GET_MENU_LIST:

@@ -18,6 +18,7 @@ app.set('views',path.resolve(__dirname,'./backstage'))
 app.use(webpackDevMiddleware(compiler,{
     publicPath : webpackDevConfig.output.publicPath,
     noInfo:true,
+    hot:true,
     historyApiFallback:true,
     stats:{
         colors:true

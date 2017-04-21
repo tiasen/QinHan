@@ -147,3 +147,39 @@
   font-size: 28px;
   color: #999;
 }
+
+.viewModal{
+ .top{
+   height:200px;
+   padding:25px 0;
+   display:flex;
+   flex-wrap:nowrap;
+   .avatar{
+     width:150px;
+     height:150px;
+     border:solid 1px #eee;
+   }
+   .mainInfo{
+     flex-grow:1;
+     padding-left:50px;
+     font-size:14px;
+     .inner{
+       width:100%;
+       display:flex;
+       flex-wrap:nowrap;
+       line-height:2em;
+       >span:first-child{
+         width:30%;
+       }
+       >span:last-child{
+         width:70%;
+         color:#000;
+         padding:0 20px;
+       }
+       //.otherSpan{
+       //  flex-wrap:wrap;
+       //}
+     }
+   }
+ }
+}
